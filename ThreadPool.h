@@ -88,7 +88,7 @@ inline ThreadPool::ThreadPool(size_t threads)
     }     
 }
 
-// add new work item to the pool
+// add new work item to the pool，返回一个 future 让用户获取结果，任务提交后不会立即返回结果（因为任务可能还没执行），但立即返回一个"凭证"（future），将来你可以用这个凭证去领取结果
 template<class F, class... Args>
 auto ThreadPool::enqueue(F&& f, Args&&... args) 
     -> std::future<typename std::result_of<F(Args...)>::type>
