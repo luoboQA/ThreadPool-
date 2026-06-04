@@ -97,7 +97,7 @@ auto ThreadPool::enqueue(F&& f, Args&&... args)
     using return_type = typename std::result_of<F(Args...)>::type;
 
     // 将任务封装为 packaged_task，便于获取 future
-    // std::forward<F>(f) 完美转发函数对象 std::forward<Args>(args)... 完美转发所有参数
+    // std::forward<F>(f) 完美转发函数对象 std::forward<Args>(args)... 完美转发所有参数，传递给bind
     // std::bind(...)将函数和参数绑定在一起，生成一个无参函数。
     // std::packaged_task<return_type()>包装一个无参函数，提供：get_future()：获取 future 对象
     auto task = std::make_shared< std::packaged_task<return_type()> >(
