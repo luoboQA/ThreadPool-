@@ -115,7 +115,7 @@ auto ThreadPool::enqueue(F&& f, Args&&... args)
     }
     // 唤醒一个工作线程来执行新提交的任务
     condition.notify_one();
-    return res;
+    return res; // // 返回给调用者results
 }
 
 // the destructor joins all threads
